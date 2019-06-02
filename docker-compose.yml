@@ -2,6 +2,6 @@ version: "3.7"
 
 services:
   app:
-    image: zkan/hitme:v2
+    image: zkan/hitme:live
     ports:
       - 80:8000
