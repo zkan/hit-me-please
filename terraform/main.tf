@@ -18,7 +18,7 @@ resource "google_compute_instance" "tf_instance" {
   }
 
   metadata = {
-    sshKeys = "kan:${file("~/.ssh/id_rsa.pub")}"
+    sshKeys = "circleci:${file("circleci.pub")}"
   }
 
   network_interface {
@@ -26,7 +26,7 @@ resource "google_compute_instance" "tf_instance" {
     access_config {}
   }
 
-  tags = ["my-web"]
+  tags = ["my-web", "http-server", "https-server"]
 }
 
 output "ip" {
