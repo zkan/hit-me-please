@@ -13,6 +13,7 @@ jobs:
             python3 -m venv ENV
             . ENV/bin/activate
             pip install -r requirements.txt
+            pip install ansible
       - run:
           name: run unit tests
           command: |
@@ -24,3 +25,12 @@ jobs:
             docker build -t zkan/hitme:live .
             docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
             docker push zkan/hitme:live
+      - add_ssh_keys:
+          fingerprints:
+            - "76:ab:40:74:da:dc:ed:dd:aa:9a:3c:7c:4e:44:fa:da"
+      - run:
+          name: deploy
+          command: |
+            . ENV/bin/activate
+            cd ansible
+            ansible-playbook -i hosts deploy.yml --extra-vars "project_path=~/hitme"
